@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="GET"> {% csrf_token %}
+        <label for="startDate">Fecha Inicio</label>
+        <input type="date" name="startDate" id="startDate" min="2000-01-01" max="2022-01-05">
+        <br>
+        <label for="startDate">Fecha Fin</label>
+        <input type="date" name="endDate" id="endDate" min="2000-01-01" max="2022-01-05">
+        <br>
+        <label for="serie">Serie a buscar:
+        <input type="text" name="serie" id="serie" placeholder="Eje. SF43718"></>
+        <br>
+        <button type="submit">Buscar</button>
+    </form>
+    <label for="Results">Resultados:</label>
+    <ul>
+        
+        {{context}} 
+            
+    </ul>
+    
+</body>
+</html>
