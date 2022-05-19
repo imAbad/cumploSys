@@ -7,9 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     
   </head>
   <body>
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="https://www.taloo.cl/assets/img/empresa/logos/logo-cumplo-5efb754977d16.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+          Cumplo
+        </a>
+      </div>
+    </nav>
+
+
+<br>
+
     <form method="GET">
       {% csrf_token %}
       <label for="startDate">Fecha Inicio</label>
@@ -17,8 +30,9 @@
         type="date"
         name="startDate"
         id="startDate"
-        min="2000-01-01"
-        max="2022-01-05"
+        min="1993-01-01"
+        max="2022-18-05"
+        required
       />
       <br />
       <label for="startDate">Fecha Fin</label>
@@ -26,27 +40,33 @@
         type="date"
         name="endDate"
         id="endDate"
-        min="2000-01-01"
-        max="2022-01-05"
+        min="1993-01-02"
+        max="2022-19-05"
+        required
       />
       <br />
-      <label for="serie"
-        >Serie a buscar:
-        <select name="serie" id="serie">
-          <option value="SF43718" selected>Dolares</option>
+      
+        <select class "form-select" aria-label="Default select example" name="serie" id="serie" required>
+          <option selected>Selecciona Serie a buscar</option>
+          <option value="SF43718">Dolares</option>
           <option value="SP68257">UDIS</option>
         </select>
-      </label>
-      <br />
-      <button type="submit">Buscar</button>
-    </form>
-    <label for="Results">Resultados:</label>
 
-    <table class="table is-fullwidth is-striped is-bordered">
+        
+
+
+
+      
+      <br />
+      <button class="btn btn-success" type="submit">Buscar</button>
+    </form>
+    <br>
+
+    <table class="table table-success table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
-          <th>Fecha</th>
-          <th>Dato</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Dato</th>
           
         </tr>
       </thead>
@@ -65,17 +85,23 @@
     <h3>Valor Min: ${{object_list.Min}}</h3>
     
     <h3>Valor Promedio: ${{object_list.Promedio}}</h3>
-
-    <!-- <canvas id="myChart" width="400" height="400"></canvas>
+    <div class="row">
+      <div class="col-sm-12">
+        <canvas id="myChart" width="100px" height="100px"></canvas>
+      </div>
+    </div>
+    
+    
     <script>
+    
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: [{% for i in object_list.banxico %} '{{i.fecha | safe}}', {%endfor%}],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                label: '{{object_list.Titulo}}',
+                data: [{% for i in object_list.banxico %} '{{i.dato | safe}}', {%endfor%}],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -103,7 +129,7 @@
             }
         }
     });
-    </script> -->
+    </script>
 
 
 
