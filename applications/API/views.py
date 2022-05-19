@@ -13,26 +13,51 @@ class getData(ListView):
         serie = self.request.GET.get('serie', '')
         startDate = self.request.GET.get('startDate', '')
         endDate = self.request.GET.get('endDate', '')
+        result = getBanxico(serie, startDate, endDate)
+        longitud = len(result['bmx']['series'][0]['datos'])
+        dicc = result['bmx']['series'][0]['datos']
+        listaValores = []
+        print('LONGLONG', longitud)
+        for i in range(longitud):
+            listaValores.append(float(dicc[i]['dato']))
+        print('LISTAAA',listaValores)
+        nMayor = np.amax(listaValores)
+        nMin = np.amin(listaValores)
+        mean = np.mean(listaValores)
         
-        context = {
-            'banxico' : getBanxico(serie, startDate, endDate),
-        }
-        # result = context['banxico']['bmx']['series'][0]['datos']
+        try:
+            context = {
+                'banxico' : result['bmx']['series'][0]['datos'],
+                'Mayor' : nMayor,
+                'Min' : nMin,
+                'Promedio' : mean
+            
+            }
+            print('Context---->', context)
+        except Exception as e:
+            context = {
+                'banxico' : 'Hey!',
+                
+            }
+            
+            
+        #result = context['banxico']['bmx']['series'][0]['datos']
+        #sprint('__________>Res', result)
         # longitud = len(result)
         # listaValores = []
         # for i in range(longitud):
-        #      listaValores.append(float(result[i]['dato']))
-        # print('_________>>>>>>>>>>Lista', listaValores)
+        #     listaValores.append(float(result[i]['dato']))
         # nMayor = np.amax(listaValores)
         # nMin = np.amin(listaValores)
         # mean = np.mean(listaValores)
-        # print('MinMAxMean_________>>>>>>>>',nMayor,nMin,mean)
+        
         # statistical = {
-        #      'Mayor' : nMayor,
-        #      'Menor' : nMin,
-        #      'Promedio' : mean 
+        #     'Mayor' : nMayor,
+        #     'Menor' : nMin,
+        #     'Promedio' : mean 
         # }
-        # context.update('Datos',statistical)
+        # context = context.update(statistical)
+       
 
 
         # print('=========================', context['Mayor']['Menor']['Promedio'])
@@ -57,9 +82,12 @@ class getData(ListView):
         #print('Resultado_____>',result)
         
         if serie and startDate and endDate:
-            return context['banxico']['bmx']['series'][0]['datos']
+            print('Simonnnnn')
+            return context
         else:
+            print('Nelson')
             return ''
+
 
 
             

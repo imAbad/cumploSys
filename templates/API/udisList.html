@@ -51,16 +51,22 @@
         </tr>
       </thead>
       <tbody>
-        {% for o in object_list %}
+        {% for o in object_list.banxico %}
         <tr>
           <th>{{o.fecha}}</th>
-          <th>{{o.dato}}</th>
+          <th>${{o.dato}}</th>          
         </tr>
         {% endfor %}
+        
       </tbody>
     </table>
+    <h3>Valor Mayor: ${{object_list.Mayor}}</h3>
+    
+    <h3>Valor Min: ${{object_list.Min}}</h3>
+    
+    <h3>Valor Promedio: ${{object_list.Promedio}}</h3>
 
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <!-- <canvas id="myChart" width="400" height="400"></canvas>
     <script>
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
@@ -97,7 +103,7 @@
             }
         }
     });
-    </script>
+    </script> -->
 
 
 
