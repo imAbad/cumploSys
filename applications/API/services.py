@@ -12,7 +12,4 @@ def getBanxico(serie, startDate, endDate):
     #response_data = response.json()
     
     return response_data
-    """
-    result = response_data["bmx"]
-    return result
-    """
+    
